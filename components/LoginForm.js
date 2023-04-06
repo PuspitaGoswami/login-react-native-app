@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
+import axios from 'axios';
+const baseUrl = 'http://localhost/api/login.php';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // handle login logic here
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(baseUrl, {
+        user_name: email,
+        user_pass: password,
+      });
+      // Handle successful login
+      console.log(response.data);
+    } catch (error) {
+      // Handle login error
+      console.error(error);
+      throw error;
+    }
   };
+
 
   return (
     <View style={styles.container}>
